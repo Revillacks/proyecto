@@ -1,0 +1,170 @@
+<section class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+  <div class=" bg-red-700 rounded shadow p-10">
+    <h2 class="text-2xl font-bold mb-3 text-center" >Ya tienes este Pokémon?</h2>
+    <button (click)="changecontent()" class="p-2 text-black bg-gray-100 hover:bg-green-600 rounded">  Revisa Pokedex </button>
+    @if(showContent){
+      <h4 class="mt-2 font-medium"> Ya lo tienes cawn</h4>
+      <img src="assets/img/lrf.png" >
+    }
+    @else {
+      <h4 class="mt-2 font-medium">??????</h4>
+      <img src="assets/img/lrs.png" >
+    }
+  </div>
+
+
+  <div class=" bg-red-700 rounded shadow p-10">
+    <h1 class="text-2xl font-bold mb-3 text-center "> Rango de Maestro Pokémon: {{range}}</h1>
+    <input type="range" class="w-full cursor-pointer h-4 bg-green-600 shadow rounded" min="1" max="9"  [(ngModel)]="range">
+    @switch (range) {
+      @case (9) {
+        <h5 class="mt-2 text-3xl text-center text-ellipsis text-gray-100">Master !!!</h5>
+        <div class="grid grid-cols-2">
+        <img src="assets/img/sixth.png">
+        <img src="assets/img/arc.gif">
+      </div>
+      }
+      @case (8) {
+        <h5 class="mt-2 text-3xl text-center text-ellipsis text-gray-100">Ultra</h5>
+        <img src="assets/img/fifth.png">
+      }
+      @case (7) {
+        <h5 class="mt-2 text-3xl text-center text-ellipsis text-gray-100">Veteran</h5>
+        <img src="assets/img/fourth.png">
+      }
+      @case (6) {
+        <h5 class="mt-2 text-3xl text-center text-ellipsis text-gray-100">Expert</h5>
+        <img src="assets/img/third.png">
+      }
+      @case (5) {
+        <h5 class="mt-2 text-3xl text-center text-ellipsis text-gray-100">Great</h5>
+        <img src="assets/img/second.png">
+      }
+      @case (4) {
+        <h5 class="mt-2 text-3xl text-center text-ellipsis text-gray-100">Beginner</h5>
+        <img src="assets/img/first.png">
+      }
+      @default {
+        <h5 class="mt-2 text-3xl text-center text-ellipsis text-gray-100">Estás verde</h5>
+        <img src="assets/img/verde.gif" >
+      }
+    }
+  </div>
+</section>
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<div class=" bg-gray-600 rounded shadow p-10">
+
+</div>
+<div class=" bg-gray-600 rounded shadow p-10">
+
+</div>
+
+</section>
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+<!--   <div class=" bg-zinc-200 rounded shadow p-10">
+    <h1 class="mt-6 text-lg font-black text-center" > Team Pokémon</h1>
+    @for(pokemon of pokes; track pokemon; let i=$index, first=$first, last=$last, odd=$odd, even=$even) {
+      <li [class]="{'bg-orange-500':first, 'bg-yellow-400':last, 'bg-green-500': odd && !first && !last, 'bg-blue-500':even && !first && !last}"> {{i+1}} {{pokemon}}</li>
+    }
+</div> -->
+
+<div class="bg-zinc-200 rounded shadow p-10">
+  <header class="text-gray-900 body-font">
+    <div class="container mx-auto flex flex-wrap mb-3 flex-col md:flex-row items-center">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
+        </svg>
+      <span class="ml-3 text-2xl"> Team Pokemon</span>
+      </a>
+    </div>
+</header>
+
+
+    @for(pokemon of pokes; track pokemon; let i=$index, first=$first, last=$last, odd=$odd, even=$even){
+    <li
+        [class]="{
+          'bg-orange-500': i === 0,
+          'bg-yellow-400': i === pokes.length - 1,
+          'bg-green-500': i % 2 !== 0 && i !== 0 && i !== pokes.length - 1,
+          'bg-blue-500': i % 2 === 0 && i !== 0 && i !== pokes.length - 1
+        }">
+      <h5 class="mt-2 text-lg text-white flex items-center transition duration-300 ease-in-out hover:text-gray-500 hover:border-b-4">
+        <a [href]="pokemon.url" target="_blank" class="w-96">{{i + 1}} {{pokemon.name}}</a>
+      <button type="button" (click)="togglePokemonModal(pokemon)"
+      class="ml-auto inline-flex items-end text-white bg-gray-700 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+      </svg>
+      </button>
+      </h5>
+    </li>
+  }
+</div>
+
+  <!-- Main Modal! -->
+  <div class="fixed z-10 inset-0 overflow-y-auto transition duration-300 ease-in-out" *ngIf="showPokemonModal">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+      </div>
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+        <header class="text-gray-600 body-font">
+          <div class="container flex flex-wrap my-3 mx-5 flex-col md:flex-row items-center">
+            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
+              </svg>
+            <h1 class="ml-3 text-xl">{{pokemonEspecifico.name}}</h1>
+            </a>
+            <p class="ml-auto inline-flex items-end pe-10 px-6">Album: {{pokemonEspecifico.name}}</p>
+          </div>
+        </header>
+        <!-- Contenido del modal -->
+        <div class="bg-white p-4">
+          <img class="lg:h-72 md:h-60 w-full object-cover object-center" [src]="pokemonEspecifico.image" alt="blog">
+          <!-- <video class="w-full" controls>
+            <source [src]="especificSong.url" type="video/mp4">
+            Your browser does not support the video tag.
+          </video> -->
+          <h2 class="my-4 text-lg">Descripcion:</h2>
+          <p class="text-justify">{{pokemonEspecifico.description}}</p>
+          <button (click)="togglePokemonModal()"
+          class="mt-4 px-4 py-2 bg-indigo-500 text-white rounded-md">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class=" bg-zinc-200 rounded shadow p-10">
+    <h1 class="mt-6 text-lg font-black text-center" > Pokedex de Paldea</h1>
+    @for(poke of pokes2; track $index;) {
+      <li>
+        {{poke}}
+      </li>
+      <div class="px-2">
+        <button appTooltip="Ver info."
+        class="px-4 py-1 text-sm text-slate-700 bg-slate-300 rounded-full hover:shadow-xl hover:bg-slate-800 hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        </svg>
+        </button>
+      </div>
+    }@empty {
+      <h2> <strong>No haz capturado ninguno</strong></h2>
+    }
+</div>
+
+</section>
+
+
+

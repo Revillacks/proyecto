@@ -1,0 +1,122 @@
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+  <div class=" bg-zinc-200 rounded shadow p-10">
+    <h2 class="text-2xl font-bold mb-3 " >If</h2>
+    <button (click)="changecontent()" class="p-2 text-white bg-gray-700 hover:bg-gray-900 rounded"> Ver Contenido </button>
+    @if(showContent){
+      <h4 class="mt-2 font-medium"> Hola mundo</h4>
+    }
+    @else {
+      <h4 class="mt-2 font-medium">HELLO WORLD</h4>
+    }
+  </div>
+
+  <div class=" bg-zinc-200 rounded shadow p-10">
+  <h1 class="mt-3 "> Calificacion de la pelicula: {{grade}}</h1>
+  <input type="range" class="w-full cursor-pointer h-4 bg-green-600 shadow rounded" min="0" max="10"  [(ngModel)]="grade">
+  @switch (grade) {
+    @case (10) {
+      <h5 class="mt-2 text-lg text-cyan-500">En efecto, es cine.</h5>
+      <img src="assets/img/esCine.png" >
+    }
+    @case (9) {
+      <h5 class="mt-2 text-lg text-cyan-700">Dos tripas.</h5>
+    }
+    @case (8) {
+      <h5 class="mt-2 text-lg text-cyan-800">No te pierdes de mucho.</h5>
+    }
+    @case (7) {
+      <h5 class="mt-2 text-lg text-cyan-900">Mñeh.</h5>
+    }
+    @default {
+      <h5 class="mt-2 text-lg text-red-500">Ni la veas we.</h5>
+    }
+  }
+  </div>
+
+  <div class=" bg-zinc-200 rounded shadow p-10">
+    <header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap mb-3 flex-col md:flex-row items-center">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
+        </svg>
+      <span class="ml-3 text-xl"> Mis rolas favoritas</span>
+      </a>
+    </div>
+  </header>
+<hr>
+
+
+    @for (rolas of misRolas; track rolas; let i = $index) {
+      <h5 class="mt-2 text-lg text-green-900 flex items-center transition duration-300 ease-in-out hover:text-indigo-500 hover:border-b-4">
+        <a [href]="rolas.url" target="_blank" class="w-96">{{i + 1}} {{rolas.name}}</a>
+        <button type="button" (click)="toggleMusicModal(rolas)"
+        class="ml-auto inline-flex items-end text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        </svg>
+        </button>
+      </h5>
+    }
+  </div>
+  <!-- <h5> <strong>Titulo:</strong> {{rolas.title}} <strong>Artista:</strong> {{rolas.artist}}</h5> -->
+
+  <!-- Main Modal! -->
+  <div class="fixed z-10 inset-0 overflow-y-auto transition duration-300 ease-in-out" *ngIf="showMusicModal">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+      </div>
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+        <header class="text-gray-600 body-font">
+          <div class="container flex flex-wrap my-3 mx-5 flex-col md:flex-row items-center">
+            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
+              </svg>
+            <h1 class="ml-3 text-xl">{{rolaEspecifica.name}}</h1>
+            </a>
+            <p class="ml-auto inline-flex items-end pe-10 px-6">Album: {{rolaEspecifica.album}}</p>
+          </div>
+        </header>
+        <!-- Contenido del modal -->
+        <div class="bg-white p-4">
+          <img class="lg:h-72 md:h-60 w-full object-cover object-center" [src]="rolaEspecifica.image" alt="blog">
+          <!-- <video class="w-full" controls>
+            <source [src]="especificSong.url" type="video/mp4">
+            Your browser does not support the video tag.
+          </video> -->
+          <h2 class="my-4 text-lg">Descripcion:</h2>
+          <p class="text-justify">{{rolaEspecifica.description}}</p>
+          <button (click)="toggleMusicModal()"
+          class="mt-4 px-4 py-2 bg-indigo-500 text-white rounded-md">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <div class=" bg-zinc-200 rounded shadow p-10">
+      <h1 class="mt-6 text-lg font-black text-center" > Antojitos</h1>
+      @for(antojito of antojitos; track antojito; let i=$index, first=$first, last=$last, odd=$odd, even=$even) {
+        <li [class]="{'bg-orange-500':first, 'bg-red-500':last, 'bg-green-500': odd && !first && !last, 'bg-blue-500':even && !first && !last}"> {{i+1}} {{antojito}}</li>
+      }
+      </div>
+
+      <div class=" bg-zinc-200 rounded shadow p-10">
+        <h1 class="mt-6 text-lg font-black text-center" > Antojitos</h1>
+        @for(antojito of antojitos2; track $index;) {
+          <li>
+            {{antojito}}
+          </li>
+        }@empty {
+          <h2>Nel no hay antojitos</h2>
+        }
+        </div>
+</section>
+
+

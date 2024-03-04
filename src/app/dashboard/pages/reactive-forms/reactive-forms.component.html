@@ -1,0 +1,98 @@
+<!-- component -->
+<div class="flex items-center justify-center p-12">
+  <!-- Author: FormBold Team -->
+  <!-- Learn More: https://formbold.com -->
+  <div class="mx-auto w-full max-w-[550px]">
+      <form [formGroup]="formFood" (ngSubmit)="saveFood()">
+
+        <div class="relative mb-4" data-te-input-wrapper-init>
+          <label
+            for="name"
+            class="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            Nombre
+          </label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Por favor ingresa tu nombre"
+            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            formControlName="name"
+            />
+            @if (validaControl('name')){
+            <small class="p-1 text-red-500 mb-1"> Este campo es requerido</small>
+            }
+        </div>
+
+        <div class="mb-5">
+          <label
+            for="email"
+            class="mb-3 block text-base font-medium text-[#07074D]"
+          >
+          description
+          </label>
+          <textarea ngSkipHydration
+            type="text"
+            name="description"
+            id="description"
+            placeholder="Type your message"
+            class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-gray-500 outline-none focus:border-[#6A64F1] focus:shadow-md"
+            formControlName="description">
+          </textarea>
+        </div>
+
+
+        <div class="mb-5">
+          <label
+            for="subject"
+            class="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            Url
+          </label>
+          <input
+            type="text"
+            name="urlImg"
+            id="urlImg"
+            placeholder="Enter your subject"
+            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            formControlName="urlImg"
+            />
+        </div>
+
+
+        <div class="mb-5">
+          <label
+            for="message"
+            class="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            Price
+          </label>
+          <input
+            type="text"
+            name="price"
+            id="price"
+            placeholder="Enter your subject"
+            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            formControlName="price"
+            />
+        </div>
+
+
+
+        <label for="" class="">Category </label>
+        <select formControlName="categoria" >
+          @for (cat of categories; track $index) {
+            <option value="cat">{{cat}}</option>
+          }
+        </select>
+
+        <div>
+          <button type="submit"
+            class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">
+            Submit
+          </button>
+        </div>
+      </form>
+  </div>
+</div>

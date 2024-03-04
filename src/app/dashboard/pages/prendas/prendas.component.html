@@ -1,0 +1,149 @@
+
+<div class="flex items-center justify-center p-12">
+  <div class="mx-auto w-full max-w-[550px]">
+      <form [formGroup]="formClothing" (ngSubmit)="saveClothing()">
+
+        <!-- Nombre de la prenda -->
+        <div class="relative mb-4">
+          <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Nombre de la prenda</label>
+          <input type="text" name="name" id="name" placeholder="Ingresa el nombre de la prenda" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" formControlName="name" />
+          @if (validaControl('name')){
+            <small class="text-red-500">Este campo es requerido</small>
+          }
+        </div>
+
+        <!-- Descripción -->
+        <div class="mb-5">
+          <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">Descripción</label>
+          <textarea name="description" id="description" placeholder="Ingresa la descripción" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" formControlName="description"></textarea>
+          @if (validaControl('description')){
+            <small class="text-red-500">La descripción es requerida y debe tener mínimo 20 caracteres</small>
+          }
+        </div>
+
+        <!-- Precio -->
+        <div class="mb-5">
+          <label for="price" class="mb-3 block text-base font-medium text-[#07074D]">Precio</label>
+          <input type="number" name="price" id="price" placeholder="Ingresa el precio" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" formControlName="price" />
+
+          @if (validaPrice()){
+            <small class="text-red-600">El precio no puede superar los 5000</small>
+          }
+          @if (validaControl('price')){
+            <small class="text-red-500">El precio es requerido</small>
+          }
+          @if (validaControl('price') && formClothing.get('price')?.errors?.['min']){
+            <small class="text-red-500">El precio no puede ser menor que 1 o negativo</small>
+          }
+          <!-- @if (validaControl('price') && formClothing.get('price')?.errors?.['max']){
+            <small class="text-red-500">El precio no puede superar los 5000</small>
+          } -->
+        </div>
+
+        <!-- Stock -->
+        <div class="mb-5">
+          <label for="stock" class="mb-3 block text-base font-medium text-[#07074D]">Stock</label>
+          <input type="number" name="stock" id="stock" placeholder="Cantidad en stock" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" formControlName="stock" />
+          @if (validaControl('stock') && formClothing.get('stock')?.errors?.['required']){
+            <small class="text-red-500">El stock es requerido</small>
+          }
+          @if (validaControl('stock') && formClothing.get('stock')?.errors?.['min']){
+            <small class="text-red-500">El stock no puede ser menor a 1</small>
+          }
+          <!-- @if (validaControl('stock') && formClothing.get('stock')?.errors?.['max']){
+            <small class="text-red-500">El stock no puede superar las 500 piezas</small>
+          } -->
+          @if (validaStock()){
+            <small class="text-red-600">El stock no puede superar las 500 piezas</small>
+          }
+        </div>
+
+        <!-- Marca -->
+        <div class="mb-5">
+          <label for="brand" class="mb-3 block text-base font-medium text-[#07074D]">Marca</label>
+          <input type="text" name="brand" id="brand" placeholder="Ingresa la marca" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" formControlName="brand" />
+          @if (validaControl('brand')){
+            <small class="text-red-500">La marca es requerida</small>
+          }
+        </div>
+
+        <!-- Clasificación -->
+        <div class="mb-5">
+          <label for="classification" class="mb-3 block text-base font-medium text-[#07074D]">Clasificación</label>
+          <select formControlName="classification" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+            @for (classification of classifications; track $index){
+              <option [value]="classification">{{ classification }}</option>
+            }
+          </select>
+        </div>
+
+        <div>
+          <button type="submit" class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">Enviar</button>
+        </div>
+
+      </form>
+  </div>
+</div>
+
+
+<!--   <div class="min-h-screen bg-gray-100 flex items-center justify-center">
+    <div class="max-w-2xl w-full mx-auto p-8 bg-white shadow-lg rounded-lg">
+      <h2 class="text-2xl font-semibold mb-6">Gestion de prendas</h2>
+      <p class="text-gray-700 mb-6">Sistema de gestion de prendas.</p>
+
+      <form class="space-y-4" [formGroup]="formClothing" (ngSubmit)="saveClothing()">
+        <div class="flex gap-4">
+          <div class="w-1/2">
+            <label class="block text-sm font-medium text-gray-700">First name</label>
+            <input type="text" placeholder="First name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+          </div>
+          <div class="w-1/2">
+            <label class="block text-sm font-medium text-gray-700">Last name</label>
+            <input type="text" placeholder="Last name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Email address</label>
+          <input type="email" placeholder="Email address" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Country</label>
+          <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <option>United States</option>
+
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Street address</label>
+          <input type="text" placeholder="Street address" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+
+        <div class="flex gap-4">
+          <div class="w-1/2">
+            <label class="block text-sm font-medium text-gray-700">City</label>
+            <input type="text" placeholder="City" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+          </div>
+
+          <div class="w-1/4">
+            <label class="block text-sm font-medium text-gray-700">State / Province</label>
+            <input type="text" placeholder="State" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+          </div>
+
+          <div class="w-1/4">
+            <label class="block text-sm font-medium text-gray-700">ZIP / Postal code</label>
+            <input type="text" placeholder="ZIP code" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+          </div>
+
+
+        </div>
+        <div>
+          <button type="submit" class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div> -->
+
+

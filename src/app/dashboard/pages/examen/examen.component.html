@@ -1,0 +1,75 @@
+<section>
+
+  @for (empleado of empleados; track $index) {
+<li>
+<a > {{empleado.name}} {{empleado.lastname}}</a>
+</li>
+<hr>
+  }
+
+  <button #btninteraction class="bg-red-300 p-2 hover:bg-red-500 rounded text-white "> Click aquí</button>
+@defer(on interaction(btninteraction)){
+  <h2 class="text-2xl font-semibold mb-6">Gestion de Empleados</h2>
+  <p class="text-gray-700 mb-6">Sistema de gestion de empleados</p>
+
+  <form [formGroup]="formEmpleado" (ngSubmit)="agregarEmpleado()" >
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Nombre</label>
+      <input formControlName="name" type="text" placeholder="Nombre del chambeador" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+      @if (validaControl('name')){
+        <small class="text-red-500"> El nombre es requerido</small>
+      }
+      @if (validaControl('name') && formEmpleado.get('name')?.errors?.['min']){
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Apellido</label>
+      <input formControlName="lastname" type="text" placeholder="Apellido del chambeador" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Salario</label>
+      <input formControlName="salary" type="text" placeholder="Salario del chambeador" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+      @if(validaControl('salary')){
+        <small class="text-red-500"> El salario es requerido</small>
+      }
+      @if (validaSalario()) {
+        <small class="text-red-600">El salario debe ser superior a los 3000</small>
+
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Email</label>
+      <input formControlName="email" type="email" placeholder="Email del chambeador" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+     @if (validaControl('email')){
+        <small class="text-red-500">El email es obligatorio</small>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Posición</label>
+      <input formControlName="position" type="text" placeholder="Delantero" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+     @if (validaControl('position')){
+        <small class="text-red-500">La posicion es obligatoria</small>
+      }
+    </div>
+
+    <br>
+    <div>
+      <button  class="hover:shadow-form rounded-md bg-indigo-500 py-3 px-8 text-base font-semibold text-white outline-none">Agregar Empleado</button>
+    </div>
+
+  </form>
+
+
+}@placeholder {
+  <div class="w-full h-30 bg-green-300">
+    Da click para abrir el formulario para agregar empleados
+  </div>
+}
+
+</section>
